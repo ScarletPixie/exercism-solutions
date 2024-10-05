@@ -15,7 +15,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.2'
           extensions: mbstring
 
       - name: install phpunit
@@ -26,7 +26,7 @@ jobs:
 
       - name: test all existing exercises
         run: |
-          for test_file in $(find . -name '*Test.php')
+          for test_file in $(find . -type f -name '*Test.php')
           do
             phpunit --testdox $test_file
           done
