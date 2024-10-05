@@ -1,0 +1,32 @@
+name: php-track tests
+on:
+  push:
+    branches:
+      - php-track
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: clone repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring
+
+      - name: install phpunit
+        run: |
+          wget -O phpunit https://phar.phpunit.de/phpunit-11.phar
+          chmod +x phpunit
+          sudo mv phpunit /usr/local/bin/phpunit
+
+      - name: test all existing exercises
+        run: |
+          for test_file in $(find . -name '*Test.php')
+          do
+            phpunit --testdox $test_file
+          done
