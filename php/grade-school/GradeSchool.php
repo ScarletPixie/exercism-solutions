@@ -26,18 +26,40 @@ declare(strict_types=1);
 
 class School
 {
+    private array $studentsData = [];
+
     public function add(string $name, int $grade): void
     {
-        throw new \BadMethodCallException("Implement the add method");
+        $name = trim($name);
+        if (ctype_alpha($name) === false || $this->validGrade($grade) === false)
+            throw new BadMethodCallException("invalid name/grade");
+
+        $this->studentsData[$grade][] = $name;
+        sort($this->studentsData[$grade]);
     }
 
     public function grade($grade)
     {
-        throw new \BadMethodCallException("Implement the grade method");
+        if ($this->validGrade($grade) === false)
+            throw new BadMethodCallException("invalid grade");
+
+        $query = array_filter($this->studentsData, function($value, $key) use($grade) {
+            return $key === $grade;
+        }, ARRAY_FILTER_USE_BOTH);
+
+        return (isset($query[$grade])) ? $query[$grade] : $query;
     }
 
     public function studentsByGradeAlphabetical(): array
     {
-        throw new \BadMethodCallException("Implement the studentsByGradeAlphabetical method");
+        $cpy = $this->studentsData;
+        ksort($cpy);
+        return $cpy;
+    }
+
+    private function validGrade(int $grade): bool
+    {
+        return $grade > 0 && $grade < 13;
     }
 }
+
