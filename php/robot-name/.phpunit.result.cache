@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"RobotNameTest::testHasName":0,"RobotNameTest::testNameSticks":0,"RobotNameTest::testDifferentRobotsHaveDifferentNames":0,"RobotNameTest::testResetName":0,"RobotNameTest::testNameArentRecycled":0.145,"RobotNameTest::testNameUniquenessManyRobots":0.144}}
